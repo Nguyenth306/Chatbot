@@ -1,0 +1,52 @@
+print("Lucas")
+
+import re
+import sys
+
+print("Greeting, My name is Lucas. What should I call you?")
+  
+def answerlist(a):
+  if re.findall(r'([Gg]ood|[Hh]appy|[Oo]k|[Jj]oyful|[Ee]xcited|[Ff]ine|[Aa]wesome|[Ww]ell)',a,re.I):
+    print("It is good to hear that. So, how can I help you today?")   
+  elif re.findall(r'([Bb]ad|[Ss]ad|[Tt]ired|[Ss]ick|[Nn]ot well|[Nn]ot good|[Ss]adness|[Ll]onely|[Ll]oneliness|[Aa]wful|[Dd]epressed)',a,re.I):
+    print("I am sorry to hear that. What can I do to cheer you up?")
+  elif re.findall(r'([Dd]ad|[Ff]ather|[Dd]addy|[Pp]a|[Pp]op|[Oo]ld man|[Pp]ater)',a,re.I):
+    print("When was the last time you talk with your father?")
+  elif re.findall(r'([Mm]om|[Mm]other|[Mm]ama|[Mm]ummy|[Mm]ommy|[Mm]umma|[Mm]um|[Mm]a)',a,re.I):
+    print("How often do you talk with your mother?")
+  elif re.findall(r'([Ss]ister|[Ss]is)',a,re.I):
+    print("What do you love about your sister?")
+  elif re.findall(r'([Bb]rother|[Bb]ro|[Br]uh)',a,re.I):
+    print("When was the last time you hang out with your brother?")
+  elif re.findall(r'([Ff]riend|[Bb]est friend|[Aa]cquantaince)',a,re.I):
+    print("How do you know each other?")
+  elif re.findall(r'([Bb]ye|[Gg]oodbye|[Ss]ee ya|[Ff]arewell|[Aa]dios)', a ,re.I):
+    print("Goodbye! It was nice talking to you.")
+    sys.exit()
+  elif re.findall(r'\b(\w+ed)\b',a,re.I):
+    ed_word = re.findall(r'\b(\w+ed)\b',a,re.I)
+    word=''.join(ed_word)
+    sub_text = re.sub(r'.{2}$','', word)
+    print("When did it", sub_text, "?")
+  else:
+    print("I am listening!!")
+
+
+def get_response():
+  while True:
+    a1 = input()
+    answerlist(a1)
+
+if __name__== '__main__':
+  while True:
+    user = input()
+    regexp_name = re.compile('([Mm]y name is|[Ii] am|[Yy]ou can call me)\s([A-Za-z]+)')
+    if regexp_name.search(user):
+        match = regexp_name.search(user)
+        print("Greeting, " + match.group(2) + ". How do you feel today?")
+        get_response()
+    elif re.findall(r'([Bb]ye|[Gg]oodby|[Ff]arewell|[Ss]ee ya)', user ,re.I):
+      print("Goodbye! It was nice talking to you.")
+      break
+    else:
+      print("Sorry I didn't get you. What's your name again?")
